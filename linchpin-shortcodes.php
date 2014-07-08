@@ -33,8 +33,8 @@ if ( ! class_exists( 'Linchpin_Shortcodes' ) ) {
 		 * @return void
 		 */
 		function register_shortcodes() {
-			add_shortcode('email', array( $this, 'obfuscate_email_shortcode' ) );
-			add_shortcode('date',  array( $this, 'output_date_shortcode' ) );
+			add_shortcode( 'email', array( $this, 'obfuscate_email_shortcode' ) );
+			add_shortcode( 'date',  array( $this, 'output_date_shortcode' ) );
 		}
 
 		/**
@@ -46,11 +46,11 @@ if ( ! class_exists( 'Linchpin_Shortcodes' ) ) {
 		 * @param mixed $content (default: null)
 		 * @return void
 		 */
-		function obfuscate_email_shortcode($atts , $content = null ) {
-	        if ( ! is_email ($content) )
-	            return;
+		function obfuscate_email_shortcode( $atts , $content = null ) {
+	        	if ( ! is_email ( $content ) )
+	            		return;
 
-			return '<a href="mailto:' . antispambot($content) . '">' . antispambot($content) . '</a>';
+			return '<a href="mailto:' . antispambot( $content ) . '">' . antispambot( $content ) . '</a>';
 		}
 
 		/**
@@ -61,10 +61,10 @@ if ( ! class_exists( 'Linchpin_Shortcodes' ) ) {
 		 * @param mixed $atts
 		 * @return void
 		 */
-		function output_date_shortcode($atts) {
+		function output_date_shortcode( $atts ) {
 		   extract( shortcode_atts( array(
 		      'format' => 'Y',
-		   ), $atts) );
+		   ), $atts ) );
 
 		   $date = date( $format );
 		   return $date;
