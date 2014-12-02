@@ -38,19 +38,38 @@ if ( ! class_exists( 'Linchpin_Shortcodes' ) ) {
 		}
 
 		/**
-		 * obfuscate_email_shortcode function.
-		 * Hide Email from Spam Bots
+		 * Hide email from Spam Bots using a shortcode.
+		 * This is entirely from the codex and it's SUPER useful.
 		 *
-		 * @access public
-		 * @param mixed $atts
-		 * @param mixed $content (default: null)
-		 * @return void
+		 * @param array  $atts    Shortcode attributes. Not used.
+		 * @param string $content The shortcode content. Should be an email address.
+		 *
+		 * Atrributes
+		 * Label: The text of our link displayed to the user
+		 * Title: The title of our link displayed as an attribute within the anchor tag
+		 *
+		 * @return string The obfuscated email address.
 		 */
 		function obfuscate_email_shortcode( $atts , $content = null ) {
-	        	if ( ! is_email ( $content ) )
-	            		return;
+        	if ( ! is_email ( $content ) )
+            		return;
 
-			return '<a href="mailto:' . antispambot( $content ) . '">' . antispambot( $content ) . '</a>';
+			extract( shortcode_atts( array(
+				'label' => '',
+				'title' => ''
+			), $atts) );
+
+			$label = antispambot($content);
+
+			if( ! empty( $atts['label'] ) ) {
+				$label = $atts['label'];
+			}
+
+			if( ! empty( $atts['title'] ) ) {
+				$title_tag = ' title="' . $atts['label'] . '"';
+			}
+
+			return '<a href="mailto:' . antispambot($content) . '"' . $title_tag . '>' . $label . '</a>';
 		}
 
 		/**
