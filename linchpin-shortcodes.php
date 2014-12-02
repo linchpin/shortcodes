@@ -61,7 +61,11 @@ if ( ! class_exists( 'Linchpin_Shortcodes' ) ) {
 				$label = $atts['label'];
 			}
 
-			return '<a href="mailto:' . antispambot($content) . '">' . $label . '</a>';
+			if( ! empty( $atts['title'] ) ) {
+				$title_tag = ' title="' . $atts['label'] . '"';
+			}
+
+			return '<a href="mailto:' . antispambot($content) . '"' . $title_tag . '>' . $label . '</a>';
 		}
 
 		/**
